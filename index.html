@@ -107,6 +107,7 @@
     .tagRequired   { background: #ff8a80; }
     .tagOptional   { background: #d8d8d4; }
     .tagGiver      { background: #80d8ff; }
+    
     .tagNote       {
       color: #aaa;
       background: #1a1a1a;
@@ -120,7 +121,15 @@
       box-sizing: border-box; 
       word-wrap: break-word; 
      }
-    .tagWeaponType { background: #ffd180; }
+    
+    .tagMelee      { background: #ffd180; }
+    .tagPistol     { background: #ffd180; }
+    .tagRifle      { background: #ffd180; }
+    .tagCannon     { background: #ffd180; }
+    .tagShotgun    { background: #ffd180; }
+    .tagEnergy	   { background: #ffd180; }
+    
+    .tagDLC      { background: #f7bf00; }
   </style>
 </head>
 
@@ -132,15 +141,15 @@
     <div class="menu">
       <div class="menu-button">☰ Menu</div>
       <div class="dropdown">
-        <div data-target="boss">Bosses</div>
+        <div data-target="baseGameBoss">Bosses</div>
         <div data-target="faq">FAQ</div>
       </div>
     </div>
 
     <!-- Boss List -->
-    <div class="content active" id="boss">
+    <div class="content active" id="baseGameBoss">
       <h2>Boss List</h2>
-      <ul id="bossList"></ul>
+      <ul id="baseGame-Bosses"></ul>
     </div>
 
     <!-- FAQ -->
@@ -177,7 +186,7 @@
       });
     });
 
-    const bosses = [
+    const baseGameBosses = [
       {title: "Cleric Beast", tag: "Optional"},
       {title: "Father Gascoigne", tag: "Required"},
       {title: "Blood-Starved Beast", tag: "Optional"},
@@ -232,14 +241,18 @@
       }
 
       if (type === 'weapon') {
-        li.appendChild(createTag(item.tag, "tagWeaponType"));
+        const tags = Array.isArray(item.tag) ? item.tag : [item.tag];
+        tags.forEach(t => {
+          const className = `tag${t.replace(/\s+/g, '')}`; // e.g. Melee → tagMelee
+          li.appendChild(createTag(t, className));
+        });
       }
 
       container.appendChild(li);
     }
 
-    const bossList = document.getElementById("bossList");
-    bosses.forEach(b => createChecklistItem(b, 'boss', bossList));
+    const baseGameBossList = document.getElementById("baseGame-Bosses");
+    baseGameBosses.forEach(b => createChecklistItem(b, 'boss', baseGameBossList));
   </script>
 
   <!-- Footer -->
