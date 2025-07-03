@@ -234,7 +234,6 @@
       checkbox.id = id;
       checkbox.checked = localStorage.getItem(id) === 'true';
       const progressIdMap = {
-        'main-Quests': 'main-Progress',
         'baseGame-Bosses': 'baseGame-Boss-Progress',
         'weapons': 'weapon-Progress'
       };
@@ -279,8 +278,7 @@
       // Get the related list by converting progressId to listId
       // e.g. main-progress → main-quests, boss-progress → baseGame-Bosses, weapon-progress → weapons
       let listId;
-      if (progressId === 'main-Progress') listId = 'main-Quests';
-      else if (progressId === 'baseGame-Boss-Progress') listId = 'baseGame-Bosses';
+      if (progressId === 'baseGame-Boss-Progress') listId = 'baseGame-Bosses';
       else if (progressId === 'weapon-Progress') listId = 'weapons';
       else return;
 
@@ -297,6 +295,7 @@
 
     const baseGameBossList = document.getElementById("baseGame-Bosses");
     baseGameBosses.forEach(b => createChecklistItem(b, 'boss', baseGameBossList));
+    updateProgress('baseGame-Boss-Progress', 'boss');
 
     window.addEventListener('DOMContentLoaded', () => {
       const faqTemplate = document.getElementById("github-link-template-faq");
