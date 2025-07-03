@@ -160,6 +160,7 @@
     <!-- Boss List -->
     <div class="content active" id="baseGameBoss">
       <h2>Boss List</h2>
+      <div class="progress" id="baseGame-Boss-Progress">Completed 0 / 0</div>
       <ul id="baseGame-Bosses"></ul>
     </div>
 
@@ -232,8 +233,15 @@
       checkbox.type = "checkbox";
       checkbox.id = id;
       checkbox.checked = localStorage.getItem(id) === 'true';
+      const progressIdMap = {
+        'main-Quests': 'main-Progress',
+        'baseGame-Bosses': 'baseGame-Boss-Progress',
+        'weapons': 'weapon-Progress'
+      };
       checkbox.addEventListener('change', () => {
         localStorage.setItem(id, checkbox.checked);
+        const progressId = progressIdMap[container.id];
+        if(progressId) updateProgress(progressId, type);
       });
 
       const label = document.createElement("label");
@@ -260,6 +268,31 @@
       }
 
       container.appendChild(li);
+      return checkbox;
+    }
+    
+    // Update the progress text for a checklist
+    function updateProgress(progressId, type) {
+      const progressEl = document.getElementById(progressId);
+      if (!progressEl) return;
+
+      // Get the related list by converting progressId to listId
+      // e.g. main-progress → main-quests, boss-progress → baseGame-Bosses, weapon-progress → weapons
+      let listId;
+      if (progressId === 'main-Progress') listId = 'main-Quests';
+      else if (progressId === 'baseGame-Boss-Progress') listId = 'baseGame-Bosses';
+      else if (progressId === 'weapon-Progress') listId = 'weapons';
+      else return;
+
+      const list = document.getElementById(listId);
+      const checkboxes = list.querySelectorAll('input[type=checkbox]');
+
+      let completed = 0;
+      checkboxes.forEach(cb => {
+        if (cb.checked) completed++;
+      });
+
+      progressEl.textContent = `Completed ${completed} / ${checkboxes.length}`;
     }
 
     const baseGameBossList = document.getElementById("baseGame-Bosses");
