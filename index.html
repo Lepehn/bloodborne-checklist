@@ -132,7 +132,18 @@
     .tagDLC      { background: #f7bf00; }
   </style>
 </head>
-
+  
+<template id="github-link-template-faq">
+  <a href="https://github.com/Lepehn/bloodborne-checklist" target="_blank" style="color: #88c0d0; text-decoration: none;">
+    GitHub repository
+  </a>
+</template>
+<template id="github-link-template-footer">
+  <a href="https://github.com/Lepehn/bloodborne-checklist" target="_blank" style="color: #88c0d0; text-decoration: none;">
+    report an issue on GitHub
+  </a>
+</template>
+  
 <body>
   <h1>Bloodborne Checklist</h1>
 
@@ -158,7 +169,7 @@
       <p>The foundation of this guide was based on Stephen McNabb's Dark Soul 2 Cheat Sheet source code.</p>
       <p>This checklist has been compiled using IGN and wiki pages.</p>
       <p><strong>I have feedback, how can I contribute?</strong><br>
-        You can visit the <a href="https://github.com/Lepehn/bloodborne-checklist" target="_blank" style="color: #88c0d0; text-decoration: none;">GitHub repository</a> and report Issues or create a fork and submit a Pull Request.
+        You can visit the <span id="faq-link-container"></span> and report Issues or create a fork and submit a Pull Request.
       </p>
       <p><strong>Is this a guide?</strong><br>
         Nope, not really. This is a set of checklists and information that you can use while playing Bloodborne.
@@ -253,14 +264,24 @@
 
     const baseGameBossList = document.getElementById("baseGame-Bosses");
     baseGameBosses.forEach(b => createChecklistItem(b, 'boss', baseGameBossList));
+
+    window.addEventListener('DOMContentLoaded', () => {
+      const faqTemplate = document.getElementById("github-link-template-faq");
+      const footerTemplate = document.getElementById("github-link-template-footer");
+
+      // Clone templates
+      const faqClone = faqTemplate.content.cloneNode(true);
+      const footerClone = footerTemplate.content.cloneNode(true);
+
+      // Insert into containers
+      document.getElementById("faq-link-container").appendChild(faqClone);
+      document.getElementById("footer-link-container").appendChild(footerClone);
+    });
   </script>
 
   <!-- Footer -->
   <footer style="text-align: center; margin-top: 40px; font-size: 0.9em; color: #aaa;">
-    Check out the project or
-    <a href="https://github.com/Lepehn/bloodborne-checklist" target="_blank" style="color: #88c0d0; text-decoration: none;">
-      report an issue on GitHub
-    </a>.
+    Check out the project or <span id="footer-link-container"></span>.
   </footer>
 </body>
 </html>
