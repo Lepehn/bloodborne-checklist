@@ -267,7 +267,7 @@
           </div>
         </div>
         <!-- Main Quests -->
-        <div class="content active" id="main">
+        <div class="content active" id="baseGameBoss">
           <h2>Bosses</h2>
           <div class="progress" id="baseGame-Boss-Progress">Completed 0 / 0</div>
           <div class="scrollable-list">
@@ -365,7 +365,7 @@
         if (item.giver) li.appendChild(createTag(item.giver, "tagGiver"));
         if (item.note) li.appendChild(createTag(item.note, "tagNote"));
 
-        if (type === "boss") {
+        if (type === "baseGameBosses") {
           const className = item.tag === "Required" ? "tagRequired" : "tagOptional";
           li.appendChild(createTag(item.tag, className));
         }
@@ -381,27 +381,6 @@
 
         container.appendChild(li);
         return checkbox;
-      }
-      
-      function filterCansByLocation(location) {
-        const canList = document.getElementById("cans");
-        canList.innerHTML = ""; // Clear current list
-
-        const filtered = location === "All"
-          ? cans
-          : cans.filter((can) => {
-              const tags = Array.isArray(can.tag) ? can.tag : [can.tag];
-              return tags.includes(location);
-            });
-
-        filtered.forEach((can) => createChecklistItem(can, "can", canList));
-        updateProgress("can-Progress", "can");
-
-        // Update active state on buttons
-        document.querySelectorAll("#can-filters .tab-button").forEach((btn) => {
-          btn.classList.remove("active");
-          if (btn.textContent === location) btn.classList.add("active");
-        });
       }
 
       // Update the progress text for a checklist
@@ -428,7 +407,7 @@
 
       const baseGameBossList = document.getElementById("baseGame-Bosses");
       baseGameBosses.forEach(b => createChecklistItem(b, 'boss', baseGameBossList));
-      updateProgress('baseGame-Boss-Progress', 'boss');
+      updateProgress('baseGame-Boss-Progress', 'baseGameBosses');
 
       window.addEventListener("DOMContentLoaded", () => {
         const faqTemplate = document.getElementById("github-link-template-faq");
