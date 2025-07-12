@@ -5,9 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Bloodborne Checklist</title>
     <style>
-      /* Base Styles */
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+      }
+
       body {
         font-family: sans-serif;
+        font-size: clamp(14px, 2vw, 16px);
         margin: 20px;
         background: #121212;
         color: #ddd;
@@ -22,55 +28,24 @@
 
       /* Container & Layout */
       .content-container {
-        position: relative;
-        max-width: 1280px;
-        margin: 60px auto 0;
-      }
-
-      /* Menu */
-      .menu {
-        position: absolute;
-        top: -60px;
-        left: 0;
-      }
-
-      .menu-button {
-        background: #212121;
-        border: 0px solid #444;
-        padding: 10px 20px;
-        cursor: pointer;
-        border-radius: 8px;
-      }
-
-      .dropdown {
-        display: none;
-        position: absolute;
-        left: 0;
-        background: #383838;
-        border: 0px solid #444;
-        border-radius: 8px;
-        min-width: 160px;
-        z-index: 1;
-      }
-
-      .dropdown div {
-        padding: 10px;
-        cursor: pointer;
-      }
-
-      .dropdown div:hover {
-        background: #383838;
-        border-radius: 8px;
-        color: #f7bf00;
-      }
+      display: flex;
+      flex-direction: row; /* horizontal layout by default */
+      align-items: flex-start;
+      gap: 20px;
+      max-width: 1280px;
+      width: 100%;
+      margin: 60px auto 0;
+      padding: 0 10px;
+    }
 
       /* Content */
       .content {
         display: none;
-        border: 0px solid #444;
+        border: none;
         padding: 20px;
         background: #212121;
         border-radius: 8px;
+        width: 100%;
         max-width: 1280px;
         margin-left: auto;
         margin-right: auto;
@@ -84,7 +59,6 @@
         color: #a0a0a0;
       }
 
-      /* List & Checkbox */
       ul {
         list-style: none;
         padding: 0;
@@ -101,7 +75,7 @@
 
       /* Tags */
       .tag {
-        font-size: 0.9em;
+        font-size: clamp(0.8em, 1.5vw, 0.95em);
         padding: 4px 8px;
         border-radius: 8px;
         display: inline-block;
@@ -137,30 +111,40 @@
         background: #f7bf00;
       }
 
-      /* Layout with Sidebar */
-      .content-container {
-        display: flex;
-        gap: 20px;
-        max-width: 1280px;
-        margin: 60px auto 0;
+      /* Sidebar Styling */
+      .sidebar-wrapper {
+        width: 100%;
+        max-width: 324px;
+        height: 100%;
+        max-height: 496px;
+        flex-shrink: 0;
       }
 
-      /* Sidebar Styling */
       .sidebar {
-        text-align: center;
         background: #212121;
         border-radius: 8px;
         padding: 20px;
-        width: 324;
-        height: 496;
-        flex-shrink: 0;
+        width: 100%;
         color: #ccc;
-        font-size: 0.95em;
-        margin-bottom: 20px;
+        font-size: clamp(0.9em, 1.5vw, 0.95em);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .profile-bg {
+        width: 100%;
+        aspect-ratio: 3 / 4;
+        background-image: url("https://images.igdb.com/igdb/image/upload/t_cover_big/co1rba.webp");
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: center;
+        border-radius: 8px;
+        flex-shrink: 0;
       }
 
       .sidebar h3 {
-        margin-top: 20;
+        margin-top: 20px;
         color: #a0a0a0;
       }
 
@@ -172,20 +156,12 @@
         text-decoration: underline;
       }
 
-      .profile-bg {
-        width: 100%;
-        height: 100%;
-        background-image: url("https://images.igdb.com/igdb/image/upload/t_cover_big/co1rba.webp");
-        background-size: 100% 100%;
-        background-repeat: no-repeat;
-        background-position: center;
-        border-radius: 8px;
-      }
-
+      /* Tabs & Buttons */
       .tab-box {
         background: #212121;
         border-radius: 8px;
         padding: 10px;
+        margin-top: 20px;
       }
 
       .tab-box2 {
@@ -199,6 +175,7 @@
         display: flex;
         flex-direction: column;
         gap: 8px;
+        width: 100%;
       }
 
       .tab-buttons2 {
@@ -206,6 +183,7 @@
         flex-direction: row;
         flex-wrap: wrap;
         gap: 8px;
+        overflow-x: auto;
       }
 
       .tab-button {
@@ -216,6 +194,7 @@
         text-align: center;
         cursor: pointer;
         transition: background 0.2s;
+        flex-shrink: 0;
       }
 
       .tab-button:hover,
@@ -226,17 +205,33 @@
 
       .scrollable-list {
         margin-top: 12px;
-        max-height: 400px; /* Adjust height as needed */
+        max-height: 400px;
         overflow-y: auto;
-        padding-right: 8px; /* Avoid cutting off scrollbar */
+        padding-right: 8px;
         scrollbar-color: #383838 #1a1a1a;
       }
 
-      /* Ensure content fills remaining space */
       .content-section {
         flex-grow: 1;
+        width: 100%;
       }
-    </style>
+
+      /* Responsive Layout */
+      @media (max-width: 768px) {
+        .content-container {
+          flex-direction: column;
+        }
+        
+        .sidebar-wrapper {
+        margin-bottom: 75px;
+        }
+
+        .sidebar-wrapper,
+        .content-section {
+          width: 100%;
+        }
+      }
+</style>
   </head>
   <template id="github-link-template-faq">
     <a href="https://github.com/Lepehn/bloodborne-checklist" target="_blank" style="color: #88c0d0; text-decoration: none;">
@@ -249,7 +244,7 @@
     </a>
   </template>
   <body>
-    <h1>Bloodborne Checklist</h1>
+    <h1>Atomic Heart</h1>
     <div class="content-container">
       <div class="sidebar-wrapper">
         <div class="sidebar">
@@ -259,6 +254,8 @@
           <div class="tab-box">
             <div class="tab-buttons">
               <div class="tab-button" data-target="faq">FAQ</div>
+              <div class="tab-button" onclick="exportChecklist()">Export Progress</div>
+              <div class="tab-button" onclick="importChecklist()">Import Progress <input type="file" id="import-file" style="display: none;" /></div>
             </div>
           </div>
         </div>
@@ -269,9 +266,8 @@
             <div class="tab-button" data-target="baseGameBoss">Bosses</div>
           </div>
         </div>
-        
-        <!-- Base Game Bosses -->
-        <div class="content active" id="baseGameBoss">
+        <!-- Main Quests -->
+        <div class="content active" id="main">
           <h2>Bosses</h2>
           <div class="progress" id="baseGame-Boss-Progress">Completed 0 / 0</div>
           <div class="scrollable-list">
@@ -303,19 +299,19 @@
     <script>
       document.querySelectorAll(".tab-button").forEach((button) => {
         button.addEventListener("click", () => {
-          // Remove active class from all buttons
-          document.querySelectorAll(".tab-button").forEach((btn) => btn.classList.remove("active"));
+          // Only run tab-switching code if data-target exists
+          const target = button.dataset.target;
+          if (!target) return;
 
-          // Add active class to clicked button
+          document.querySelectorAll(".tab-button").forEach((btn) => btn.classList.remove("active"));
           button.classList.add("active");
 
-          // Switch tab content
           document.querySelectorAll(".content").forEach((c) => c.classList.remove("active"));
-          document.getElementById(button.dataset.target).classList.add("active");
+          document.getElementById(target).classList.add("active");
         });
       });
-      
-      const baseGameBosses = [
+
+       const baseGameBosses = [
         {title: "Cleric Beast", tag: "Optional"},
         {title: "Father Gascoigne", tag: "Required"},
         {title: "Blood-Starved Beast", tag: "Optional"},
@@ -374,7 +370,7 @@
           li.appendChild(createTag(item.tag, className));
         }
 
-        if (type === "weapon") {
+        if (type === "can") {
           const tags = Array.isArray(item.tag) ? item.tag : [item.tag];
           tags.forEach((t) => {
             if (!t) return;
@@ -385,6 +381,27 @@
 
         container.appendChild(li);
         return checkbox;
+      }
+      
+      function filterCansByLocation(location) {
+        const canList = document.getElementById("cans");
+        canList.innerHTML = ""; // Clear current list
+
+        const filtered = location === "All"
+          ? cans
+          : cans.filter((can) => {
+              const tags = Array.isArray(can.tag) ? can.tag : [can.tag];
+              return tags.includes(location);
+            });
+
+        filtered.forEach((can) => createChecklistItem(can, "can", canList));
+        updateProgress("can-Progress", "can");
+
+        // Update active state on buttons
+        document.querySelectorAll("#can-filters .tab-button").forEach((btn) => {
+          btn.classList.remove("active");
+          if (btn.textContent === location) btn.classList.add("active");
+        });
       }
 
       // Update the progress text for a checklist
@@ -425,6 +442,62 @@
         document.getElementById("faq-link-container").appendChild(faqClone);
         document.getElementById("footer-link-container").appendChild(footerClone);
       });
+      
+      function exportChecklist() {
+        const categories = ["boss"];
+        const sortedData = {};
+
+        categories.forEach((category) => {
+          const entries = [];
+
+          for (let i = 0; i < localStorage.length; i++) {
+            const key = localStorage.key(i);
+            if (key.startsWith(`${category}-`)) {
+              entries.push({ key, value: localStorage.getItem(key) });
+            }
+          }
+
+          entries.sort((a, b) => a.key.localeCompare(b.key));
+
+          entries.forEach((entry) => {
+            sortedData[entry.key] = entry.value;
+          });
+        });
+
+        const blob = new Blob([JSON.stringify(sortedData, null, 2)], { type: "application/json" });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = "bloodborne-checklist.json";
+        a.click();
+        URL.revokeObjectURL(url);
+      }
+
+      function importChecklist() {
+        const fileInput = document.getElementById("import-file");
+        fileInput.click();
+
+        fileInput.onchange = (event) => {
+          const file = event.target.files[0];
+          if (!file) return;
+
+          const reader = new FileReader();
+          reader.onload = (e) => {
+            try {
+              const imported = JSON.parse(e.target.result);
+              for (const key in imported) {
+                if (imported.hasOwnProperty(key)) {
+                  localStorage.setItem(key, imported[key]);
+                }
+              }
+              alert("Checklist progress imported! Refresh the page to see updates.");
+            } catch (err) {
+              alert("Failed to import: Invalid file format.");
+            }
+          };
+          reader.readAsText(file);
+        };
+      }
     </script>
 
     <!-- Footer -->
