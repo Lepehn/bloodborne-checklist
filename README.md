@@ -1,7 +1,7 @@
 # 📋 bloodborne-checklist
 https://lepehn.github.io/bloodborne-checklist/
 
-A sleek, lightweight checklist web app to help you track boss in **Bloodborne**. Inspired by fan-made guides for games like *Dark Souls* and *Bloodborne*, this project helps you stay organized without spoilers or unnecessary fluff.
+A sleek, lightweight checklist web app to help you track progress in **Bloodborne**. Inspired by fan-made guides for games like *Dark Souls* and *Bloodborne*, this project helps you stay organized without spoilers or unnecessary fluff.
 
 ## 🧩 Features
 
