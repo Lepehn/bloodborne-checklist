@@ -7,6 +7,7 @@ import { trickWeapons } from "./data/trickWeapons.js";
 import { sideArms } from "./data/sideArms.js";
 import { pthumeruChalices } from "./data/pthumeruChalices.js";
 import { hunterTools } from "./data/hunterTools.js";
+import { dlcBosses } from "./data/dlcBosses.js";
 import { dlcTrickWeapons } from "./data/dlcTrickWeapons.js";
 import { dlcSideArms } from "./data/dlcSideArms.js";
 import { dlcHunterTools } from "./data/dlcHunterTools.js";
@@ -25,9 +26,11 @@ export const GAME = {
     sideArms,
     pthumeruChalices,
     hunterTools,
+    dlcBosses,
     dlcTrickWeapons,
     dlcSideArms,
     dlcHunterTools
   }
 
 };
+
