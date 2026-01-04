@@ -7,11 +7,24 @@ A sleek, lightweight checklist web app to help you track progress in **Bloodborn
 
 - ✅ Track progress across:
   - Bosses
+  - Trick Weapons
+  - Side Arms
+  - Hunter Tools
+  - Pthumeru Chalices
+  - DLC Bosses
+  - DLC Trick Weapons
+  - DLC Side Arms
+  - DLC Hunter Tools
 - 🗂️ Filter by type:
   - Bosses
-  - Weapons (WIP)
-  - Collectibles (WIP)
-  - DLC (WIP)
+  - Trick Weapons
+  - Side Arms
+  - Hunter Tools
+  - Pthumeru Chalices
+  - DLC Bosses
+  - DLC Trick Weapons
+  - DLC Side Arms
+  - DLC Hunter Tools
 - 🗂️ Filter by status:
   - Not Started
   - In Progress
