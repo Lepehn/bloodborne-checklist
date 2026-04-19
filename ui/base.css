@@ -45,7 +45,7 @@ body {
   border-bottom: 1px solid var(--button);
   background-color: var(--navbar);
 }
-.navbar .logo { font-size: var(--font-size-extra-large); font-weight: bold;}
+.navbar .logo { color: var(--text-active); font-size: var(--font-size-extra-large); font-weight: bold;}
 .navbar .menu { display: flex; gap: 30px; }
 .navbar .menu a {
   color: var(--text-muted);
@@ -53,7 +53,7 @@ body {
   font-size: var(--font-size-medium);
   cursor: pointer;
 }
-.navbar .menu a.active { color: var(--text); }
+.navbar .menu a.active { color: var(--text-active); }
 
 /* Layout */
 .container {
@@ -84,6 +84,7 @@ body {
   box-shadow: 0 3px 10px rgba(0,0,0,0.06);
 }
 .card-header {
+  color: var(--text-active);
   display: flex;
   justify-content: space-between;
   align-items: center;
